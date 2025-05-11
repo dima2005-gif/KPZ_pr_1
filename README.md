@@ -542,3 +542,286 @@ $ cat hello.html
 </html>
 ```
 ![10](https://github.com/user-attachments/assets/347d5235-400c-45e7-b46e-83eb23463e88)
+
+# 11. Створення тегів версій
+Створемо тег для першої версії:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git tag v1
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+9b6ab77 2025-03-10 | Added HTML header (HEAD -> main, tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Тепер поточна версія називається ```v1```
+
+Перемкнемось на іншу версію аби теж надати тег. Для цього виконаємо команду:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git checkout v1^
+```
+
+У результаті буде:
+```
+Note: switching to 'v1^'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 205f3f9 Added standard HTML page tags
+```
+
+Тепер прочитаємо вміст цієї гілки, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((205f3f9...))
+$ cat hello.html
+```
+У результаті:
+```
+<html>
+  <body>
+    <h1>Hello, world</h1>
+  </body>
+</html>
+```
+
+Надамо йому тег ```v1-beta```.
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((205f3f9...))
+$ git tag v1-beta
+```
+
+Тепер перевіримо, що тут було встановлено тег, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((v1-beta))
+$ git log
+```
+
+Результат:
+```
+205f3f9 2025-03-10 | Added standard HTML page tags (HEAD, tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Тепер перемкнемось, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((v1-beta))
+$ git checkout v1
+Previous HEAD position was 205f3f9 Added standard HTML page tags
+HEAD is now at 9b6ab77 Added HTML header
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((v1))
+$ git checkout v1-beta
+Previous HEAD position was 9b6ab77 Added HTML header
+HEAD is now at 205f3f9 Added standard HTML page tags
+```
+
+Переглянемо теги, для цього виконаємо команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((v1-beta))
+$ git tag
+v1
+v1-beta
+```
+
+Тепер так само, але у логах, виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((v1-beta))
+$ git log main --all
+```
+
+Результат:
+```
+9b6ab77 2025-03-10 | Added HTML header (tag: v1, main) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (HEAD, tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+![11](https://github.com/user-attachments/assets/d2b4a38f-3310-4333-bb30-40bcd2b30d8f)
+
+# 12. Скасування локальних змін (до індексації)
+Перемкнемось на основну гілку ```main```, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((v1-beta))
+$ git switch main
+Previous HEAD position was 205f3f9 Added standard HTML page tags
+Switched to branch 'main'
+```
+
+Додамо небажаний коментар у наш файл ```hello.html```, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim hello.html
+```
+Тепер додамо коментар:
+
+![3 3](https://github.com/user-attachments/assets/25c74a89-49de-4cf1-89b6-ec9eefd184dd)
+
+Перевіремо статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+Результат:
+```
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   hello.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Тепер скасуємо наші зміни, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git restore hello.html
+```
+
+Тепер, ще раз перевіримо статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+Результат:
+```
+On branch main
+nothing to commit, working tree clean
+```
+
+Тепер прочитаємо зміст файлу:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ cat hello.html
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Hello, world</h1>
+  </body>
+</html>
+```
+
+![12](https://github.com/user-attachments/assets/9a6e06bb-8bc0-40a7-bdca-210eeec8b1bf)
+
+# 13. Скасування проіндексованих змін (перед комітом)
+Знову внесемо наші зміни у файл.
+
+![3 4](https://github.com/user-attachments/assets/ba7d0a97-b29d-4847-9992-58b7ae4f9237)
+
+Тепер додамо цей файл, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Тепер перевіримо стан, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+Результат:
+```
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   hello.html
+```
+
+Наступною командою, ми очищемо область показу:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git restore --staged hello.html
+```
+
+Відновимо файл до стану останнього коміту виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git restore hello.html
+```
+
+Перевіримо наш статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+On branch main
+nothing to commit, working tree clean
+```
+
+![13](https://github.com/user-attachments/assets/405cef77-8814-4253-b045-75a44a0f7da8)
+
+# 14. Скасування комітів
+Змінимо наш файл. Відкривши його у редакторі ```NeoVim```
+
+![3 3](https://github.com/user-attachments/assets/16dd06f2-9db9-4da9-9165-2afe843b4c6e)
+
+Виконаємо наступні команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Додамо коміт, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Oops, we didn't want this commit"
+[main a966b56] Oops, we didn't want this commit
+ 1 file changed, 1 insertion(+)
+```
+
+Скасуємо наш коміт, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git revert HEAD
+[main 96c756f] Revert "Oops, we didn't want this commit"
+ 1 file changed, 1 deletion(-)
+```
+
+Тепер перевіримо лог, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+```
+
+Результат: 
+```
+96c756f 2025-03-10 | Revert "Oops, we didn't want this commit" (HEAD -> main) [Dmytro]
+a966b56 2025-03-10 | Oops, we didn't want this commit [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+![14](https://github.com/user-attachments/assets/ed94a9d1-8f0b-4d8d-8635-50591d8c4149)
+
+# 15. Видалення комітів з гілки (revert)
+
