@@ -1,1 +1,544 @@
-# KPZ_pr_1
+# Величко Дмитро ІПЗ 3.02
+## Практичне заняття №1
+### Проходження інтерактивного курсу «Git How To»
+
+Пройти інтерактивний курс [Git How To](https://githowto.com/uk)
+
+## Частина 1
+# 0. Підготовка
+За посиланням завантажити матеріал для подальшої роботи
+https://githowto.com/githowto.zip
+Далі розпакуємо і у нас буде 2 файла
+
+- ```repositories```: порожня директорія, в якій ви будете створювати свої репозиторії.
+- ```files```: завчасно упаковані файли для того, щоб ви могли продовжити роботу з навчальними матеріалами на будь-якому етапі.
+Цей файл створений у тому випадку якщо десь виникнуть проблеми.
+
+# 0.1. Основи Git
+Тут розповідається про те що таке сам Git для чого він потрібен і про основні терміни, на кшталт ```репозиторій```, ```коміт```, ```гілка```.
+
+# 1. Фінальні приготування
+Так зайшовши в термінал нам треба було встановити своє ім'я і пошту.
+
+Далі ми встановили гілку яка у нас буде за замовчуванням.
+![1](https://github.com/user-attachments/assets/9ea54e9c-15dd-4172-adbe-7a3317090892)
+
+# 2. Створення проєкту
+Так створемо файл у якому ми створемо файл hello.html
+Для цього виканаємо такі команди: 
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ mkdir work
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ cd work
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work
+$ touch hello.html
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work
+$ nvim hello.html
+```
+
+Відкривши ```NeoVim``` ми напишемо:
+
+```hello.html```
+
+```1. Hello, World```
+
+Зберігши файл виходимо.
+
+Далі ми створимо репозиторій. Для цього виконаємо таку комунду:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work
+$ git init
+```
+
+В результаті чого виникає таке повідомлення:
+
+```Initialized empty Git repository in D:/all you need/Общее/учеба/Git tutor/githowto/repositories/work/.git/```
+
+Так, тепер додамо наш файл у це репозиторій. Для цього виконаємо таку команду:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Далі додамо коміт
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Initial Comit"
+```
+
+У результаті буде:
+
+```
+[main (root-commit) 937b340] Initial Comit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.html
+```
+
+![2](https://github.com/user-attachments/assets/4624e228-562e-491a-99e5-9bdd4d499982)
+
+
+# 3. Перевірка стану
+Перевіремо стан репозиторію виконавши команду:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+У результаті з'явиться таке повідомлення:
+
+```
+On branch main
+nothing to commit, working tree clean
+```
+
+![3](https://github.com/user-attachments/assets/db0a9c9f-6a48-44d3-a9af-d7470a48164b)
+
+# 4. Внесення змін
+
+Змінемо файл hello.html. Для цього виконаємо таку команду:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim hello.html
+```
+
+Додамо теги:
+
+![_3](https://github.com/user-attachments/assets/ed1452b8-eb52-4a69-a269-1746af3a9654)
+
+Зберігши зміни перевіримо стан, для цього напишемо команду: 
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+У результаті буде: 
+
+```
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   hello.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+![4](https://github.com/user-attachments/assets/ad8373e6-360e-4892-9652-30d218db7ceb)
+
+
+# 5. Індексація змін
+
+Так додамо наш змінений файл, для цього виконаємо команду:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Потім перевіримо його статус, виконавши команду: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+У результаті 
+```
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   hello.html
+```
+
+![5](https://github.com/user-attachments/assets/f40da849-2708-496f-8e29-f00d94847d11)
+
+# 6. Індексація та коміт
+Тут розповідається про індексацію і як можна аби файли йшли одним комітом, а інші другим комітом. Використовуючи такі команди:
+```
+git add a.html
+git add b.html
+git commit -m "Changes for a and b"
+```
+
+А потім виконати таку команду:
+
+```
+git add c.html
+git commit -m "Unrelated change to c"
+```
+
+# 7. Коміт змін
+Виконаємо наступну команду: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit
+```
+
+![7 1](https://github.com/user-attachments/assets/1ea9cb92-66b4-4b63-9eae-54fbda19bb43)
+
+У результаті буде таке: 
+```
+|
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Changes to be committed:
+#       modified:   hello.html
+#
+```
+Відкривши редактор ```NeoVim```, ми зробимо такі зміни:
+```
+Added h1 tag
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Changes to be committed:
+#       modified:   hello.html
+#
+```
+![7 vim](https://github.com/user-attachments/assets/1ac1aee8-be80-4adb-baa2-e35cdfb9c1b9)
+
+Після збереження у нас буде наступне повідомлення:
+```
+[main a31cf4c] Added h1 tag
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+Тепер перевіримо статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+У результаті:
+```
+On branch main
+nothing to commit, working tree clean
+```
+![7 3](https://github.com/user-attachments/assets/e4b32225-c488-4723-bdba-00dde862c06c)
+
+# 8. Зміни, а не файли
+Так, додамо першу зміну у наш файл, для цього виконаємо команду: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim hello.html
+```
+І зробимо такі заміни:
+
+![3 1(друга зміна файлу html)](https://github.com/user-attachments/assets/65dc0969-82f3-4600-bbb2-a9c8671afdec)
+
+Далі після збереження додамо ці зміни за допомогою команди: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Далі ще зробимо зміну файлу hello.html, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim hello.html
+```
+
+Тепер зробимо такі зміни:
+
+![3 2](https://github.com/user-attachments/assets/e4ccc693-3a37-4b54-86a9-3b3049f6199e)
+
+Збережемо і перевіримо статус: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+В результаті буде таке:
+```
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   hello.html
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   hello.html
+```
+
+Зробимо коміти наших змін.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Added standard HTML page tags"
+```
+
+В результаті буде таке:
+```
+[main 205f3f9] Added standard HTML page tags
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+```
+
+Перевіримо ще раз статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+
+В результаті буде таке:
+```
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   hello.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Додамо другу зміну: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add .
+```
+
+Перевіримо статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git status
+```
+
+В результаті буде таке:
+```
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   hello.html
+```
+
+Зробимо коміт другої зміни:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Added HTML header"
+```
+
+В результаті буде:
+```
+[main 9b6ab77] Added HTML header
+ 1 file changed, 3 insertions(+)
+```
+
+![8](https://github.com/user-attachments/assets/a10007e9-6eec-461f-a74d-29d54f3b11bb)
+
+# 9. Історія проєкту
+Виконаємо команду: 
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+```
+
+Ця команда дає нам список зроблених змін. Ось результат:
+```
+commit 9b6ab7710eeb16dfe8d683b312d0725dbb658ec7 (HEAD -> main)
+Author: Dmytro <dima2005157@gmail.com>
+Date:   Mon Mar 10 18:42:55 2025 +0200
+
+    Added HTML header
+
+commit 205f3f95c3bed0727150184cb3ba882fe0d86465
+Author: Dmytro <dima2005157@gmail.com>
+Date:   Mon Mar 10 18:40:55 2025 +0200
+
+    Added standard HTML page tags
+
+commit a31cf4cb45f3581757a69c79fd6350c99425e3ed
+Author: Dmytro <dima2005157@gmail.com>
+Date:   Mon Mar 10 18:29:56 2025 +0200
+
+    Added h1 tag
+
+commit 937b340b521e2191b4dac1f1fac9b46c261d24f0
+Author: Dmytro <dima2005157@gmail.com>
+Date:   Mon Mar 10 18:13:32 2025 +0200
+
+    Initial Comit
+```
+
+Напишемо команду для однорядкового формату:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --pretty=oneline
+```
+
+Результат:
+```
+9b6ab7710eeb16dfe8d683b312d0725dbb658ec7 (HEAD -> main) Added HTML header
+205f3f95c3bed0727150184cb3ba882fe0d86465 Added standard HTML page tags
+a31cf4cb45f3581757a69c79fd6350c99425e3ed Added h1 tag
+937b340b521e2191b4dac1f1fac9b46c261d24f0 Initial Comit
+```
+
+Далі виконаємо команди для різних форматів відображення змін:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --oneline --max-count=2
+9b6ab77 (HEAD -> main) Added HTML header
+205f3f9 Added standard HTML page tags
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --oneline --since="5 minutes ago"
+```
+Тут нічого)
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --oneline --until="5 minutes ago"
+9b6ab77 (HEAD -> main) Added HTML header
+205f3f9 Added standard HTML page tags
+a31cf4c Added h1 tag
+937b340 Initial Comit
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --oneline --author="Dmytro"
+9b6ab77 (HEAD -> main) Added HTML header
+205f3f9 Added standard HTML page tags
+a31cf4c Added h1 tag
+937b340 Initial Comit
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --oneline --all
+9b6ab77 (HEAD -> main) Added HTML header
+205f3f9 Added standard HTML page tags
+a31cf4c Added h1 tag
+937b340 Initial Comit
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --all --pretty=format:"%h %cd %s (%an)" --since="7 days ago"
+9b6ab77 Mon Mar 10 18:42:55 2025 +0200 Added HTML header (Dmytro)
+205f3f9 Mon Mar 10 18:40:55 2025 +0200 Added standard HTML page tags (Dmytro)
+a31cf4c Mon Mar 10 18:29:56 2025 +0200 Added h1 tag (Dmytro)
+937b340 Mon Mar 10 18:13:32 2025 +0200 Initial Comit (Dmytro)
+```
+
+Так ми тепер напишемо наступну команду, яка нам буде комфортна для подальшої роботи:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --pretty=format:"%h %ad | %s%d [%an]" --date=short
+```
+
+Результат:
+```
+9b6ab77 2025-03-10 | Added HTML header (HEAD -> main) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Тепер зробимо такий формат за замовчуванням:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git config --global format.pretty '%h %ad | %s%d [%an]'
+
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git config --global log.date short
+```
+
+![9](https://github.com/user-attachments/assets/d43011be-e270-4250-92b0-fe9dd3412c67)
+
+# 10. Отримання старих версій
+Отримаємо хеші попередніх комітів, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+```
+
+Отриимаємо:
+```
+9b6ab77 2025-03-10 | Added HTML header (HEAD -> main) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Тепер виконавши наступну команду, перевіримо хеш першого коміту.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git checkout 937b340
+```
+Результат:
+```
+Note: switching to '937b340'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 937b340 Initial Comit
+```
+Далі перевіримо його зміст виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((937b340...))
+$ cat hello.html
+```
+
+У результаті ми отримаємо:
+
+```
+Hello, world
+```
+
+Перемкнемось на останню версію гілки ```main```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work ((937b340...))
+$ git switch main
+Previous HEAD position was 937b340 Initial Comit
+Switched to branch 'main'
+```
+
+Тепер ще раз перевіримо зміст файлу:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ cat hello.html
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Hello, world</h1>
+  </body>
+</html>
+```
+![10](https://github.com/user-attachments/assets/347d5235-400c-45e7-b46e-83eb23463e88)
