@@ -827,4 +827,198 @@ a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
 ![14](https://github.com/user-attachments/assets/ed94a9d1-8f0b-4d8d-8635-50591d8c4149)
 
 # 15. Видалення комітів з гілки (revert)
+Перевіримо нашу історію комітів. Для цього виконаємо команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+```
 
+У результаті:
+```
+96c756f 2025-03-10 | Revert "Oops, we didn't want this commit" (HEAD -> main) [Dmytro]
+a966b56 2025-03-10 | Oops, we didn't want this commit [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+У нас тут два коміти ```Revert Oops```, ```Oops```. Видалимо їх. 
+Але перед цим надамо їм теги, аби було простіше видалити.
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git tag oops
+```
+
+У результаті буде:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+96c756f 2025-03-10 | Revert "Oops, we didn't want this commit" (HEAD -> main, tag: oops) [Dmytro]
+a966b56 2025-03-10 | Oops, we didn't want this commit [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Зробимо відкіт до тега ```v1```, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git reset --hard v1
+HEAD is now at 9b6ab77 Added HTML header
+```
+
+Тепер перевіремо:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+9b6ab77 2025-03-10 | Added HTML header (HEAD -> main, tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Що ж трапляється з помилковими комітами? Виявляється, що коміти все ще знаходяться в репозиторії, ми все ще можемо на них посилатися. 
+
+Напишемо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --all
+```
+
+У результаті ми побачимо, що:
+```
+96c756f 2025-03-10 | Revert "Oops, we didn't want this commit" (tag: oops) [Dmytro]
+a966b56 2025-03-10 | Oops, we didn't want this commit [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (HEAD -> main, tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+наші помилкові коміти нікуди не зникли, просто вони відсутні на головній гілці  ```main```.
+
+![15](https://github.com/user-attachments/assets/da8c15a2-a7de-48d2-9342-541a286e1c44)
+
+# 16. Видалення тегу ```oops```
+
+Видалемо наш тег ```oops```. Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git tag -d oops
+Deleted tag 'oops' (was 96c756f)
+```
+
+Тепеp перевіримо:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --all
+9b6ab77 2025-03-10 | Added HTML header (HEAD -> main, tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Усе наш тег більше не відображається у репозиторії.
+
+![16](https://github.com/user-attachments/assets/1c010ac7-acda-4823-a8b5-64f8d9390341)
+
+# 17. Внесення змін до комітів
+
+Додамо у наш файл коментар автора, для цього відкриємо наш файл.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim hello.html
+```
+Замінимо:
+
+![3 5](https://github.com/user-attachments/assets/56194256-5807-4b1b-852a-9a32ecf77c2b)
+
+Зберігши зміни, виконаємо наступні команди:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Закомітимо:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Added copyright statement"
+[main ce0884d] Added copyright statement
+ 1 file changed, 1 insertion(+)
+```
+
+І переглянемо коміти:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+ce0884d 2025-03-10 | Added copyright statement (HEAD -> main) [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Упс. Нам треба було додати пошту у наш файл, добре відкриємо наш файл.
+Виконаємо команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim hello.html
+```
+
+Зробимо такі зміни:
+
+![3 6](https://github.com/user-attachments/assets/0643a1f8-d4f6-408a-8929-0b3bc9ae9b22)
+
+Тепер додамо зміни, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Робимо коміт.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit --amend -m "Added copyright statement with email"
+[main c410e88] Added copyright statement with email
+ Date: Mon Mar 10 20:02:54 2025 +0200
+ 1 file changed, 1 insertion(+)
+```
+
+Переглянемо історію:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log
+c410e88 2025-03-10 | Added copyright statement with email (HEAD -> main) [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+![17](https://github.com/user-attachments/assets/06a071a0-c8e8-4242-9b89-582ef961737a)
+
+# 18. Створення гілки
+
+Створемо нову гілку наступною командою:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git switch -c style
+Switched to a new branch 'style'
+```
+
+Тепер перевіримо статус, наступною командою:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git status
+On branch style
+nothing to commit, working tree clean
+```
+Побачимо що у нас тут у терміналі у душках написано ```style```, тобто ми автоматично перемикнулись на новостворену гілку.
+
+Створемо файл ```style.css``` за допомогою команди:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ touch style.css
+```
