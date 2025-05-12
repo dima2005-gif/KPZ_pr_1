@@ -1211,3 +1211,1100 @@ Untracked files:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
+
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git add .
+```
+
+Тепер перевіремо його статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git status
+On branch style
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    hello.html -> index.html
+```
+
+По факту ми зробили так аби наш Git розумів, що ми перейменували файл.
+Тепер ми створимо нову директорію і перемістимо наш файл стилю ```style.css``` у цю директорію. Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ mkdir css
+```
+Ми створили директорію, тепер перемістимо наш файл, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git mv style.css css/style.css
+```
+Перевіримо, для цього напишемо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git status
+```
+
+Результатом буде:
+```
+On branch style
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    style.css -> css/style.css
+        renamed:    hello.html -> index.html
+```
+Зробимо коміти і подивимось історію змін у файлі ```css/style.css```. Для цього виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git commit -m "Renamed hello.html; moved style.css"
+```
+
+Результатом буде наступне:
+```
+[style 37345ad] Renamed hello.html; moved style.css
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ rename style.css => css/style.css (100%)
+ rename hello.html => index.html (100%)
+```
+
+Тепер за допомогою логів перевіримо історію змін:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log css/style.css
+```
+
+Результат:
+```
+37345ad 2025-03-10 | Renamed hello.html; moved style.css (HEAD -> style) [Dmytro]
+```
+
+Тепер дещо видозмінемо команду для перевірки історії змін. Додамо наступну опцію ```--follow```
+яка нам дозволить подивитись історію змін файлу ДО того як він був переміщений у каталог.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log --follow css/style.css
+```
+
+Результат: 
+```
+37345ad 2025-03-10 | Renamed hello.html; moved style.css (HEAD -> style) [Dmytro]
+58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+```
+
+![20](https://github.com/user-attachments/assets/45deb475-92af-4fd1-9116-9895e8f78040)
+
+# 21. Зміни в гілці ```main```
+
+Cтворемо файл ```README``` і додамо наступну інформацію:
+```
+This is the Hello World example from the GitHowTo tutorial.
+```
+Для цього виконаємо таку команди:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ nvim README
+```
+Збережемо наш файл, теперми закомітимо його на основній гілці ```main```. Для цього спочатку перемкнемося на основну гілку.
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git switch main
+Switched to branch 'main'
+```
+
+Тепер виконаємо наступну команду, аби додати наш файл.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add README
+```
+
+Тепер закомітимо його.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Added README"
+[main 9b72d64] Added README
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README
+```
+
+![21](https://github.com/user-attachments/assets/86196e86-7447-4b21-a1ff-1c1aa1ef92d0)
+
+# 22. Перегляд розбіжних гілок
+Так як ми створили ще одну гілку ```style``` давайте переглянемо структуру нашого дерева, для цього виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --all --graph
+```
+
+Ось результат:
+```
+* 9b72d64 2025-03-10 | Added README (HEAD -> main) [Dmytro]
+| * 37345ad 2025-03-10 | Renamed hello.html; moved style.css (style) [Dmytro]
+| * 14af3d6 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+| * 58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+|/
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+![22](https://github.com/user-attachments/assets/95f58910-6555-424b-8b14-40231bb5b975)
+
+# 23. Злиття
+Наша задача злити 2 гілки, для цього перемкнемось на іншу гілку, а саме на ```style```.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git switch style
+Switched to branch 'style'
+```
+
+Тепер зіллємо в одну гілку все виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git merge main
+Merge made by the 'ort' strategy.
+ README | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README
+```
+
+Тепер переглянемо нашу структуру дерева, виконавши наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log --all --graph
+```
+
+Результат: 
+```
+*   fd5481e 2025-03-10 | Merge branch 'main' into style (HEAD -> style) [Dmytro]
+|\
+| * 9b72d64 2025-03-10 | Added README (main) [Dmytro]
+* | 37345ad 2025-03-10 | Renamed hello.html; moved style.css [Dmytro]
+* | 14af3d6 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+* | 58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+|/
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+![23](https://github.com/user-attachments/assets/d900eaaa-0423-410f-91a4-6dedc094d7e8)
+
+# 24. Створення конфлікту
+Змоделюємо конфлікт. Перемкнемося на основну гілку ```main```.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git switch main
+Switched to branch 'main'
+```
+
+Тепер відкриємо наш файл.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim hello.html
+```
+
+Зробимо зміни
+
+![3 8](https://github.com/user-attachments/assets/54dfa06a-cad2-43f2-94c1-016801019bd8)
+
+Після збереження додамо його.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add hello.html
+```
+
+Тепер зробимо коміт:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Added meta title"
+[main 07015f1] Added meta title
+ 1 file changed, 2 insertions(+)
+```
+
+Тепер відобразимо наше дерево:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --all --graph
+```
+
+```
+* 07015f1 2025-03-10 | Added meta title (HEAD -> main) [Dmytro]
+| *   fd5481e 2025-03-10 | Merge branch 'main' into style (style) [Dmytro]
+| |\
+| |/
+|/|
+* | 9b72d64 2025-03-10 | Added README [Dmytro]
+| * 37345ad 2025-03-10 | Renamed hello.html; moved style.css [Dmytro]
+| * 14af3d6 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+| * 58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+|/
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+Остання зміна в ```main``` конфліктує з деякими змінами в ```style```.
+
+![24](https://github.com/user-attachments/assets/c7575314-85a3-408b-a1a5-d17a954e750c)
+
+# 25. Вирішення конфліктів
+Тепер зіллємо наші гілкі. Спочатку перемкнемось на гілку ```style```.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git switch style
+Switched to branch 'style'
+```
+
+Тепер зіллємо з основною гілкою ```main```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git merge main
+```
+
+Тепер подивимось на результат:
+```
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+Так, у нас виник конфлікт, подивимось, що нам скаже про це ```Git```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style|MERGING)
+$ git status
+```
+Ось що нам каже ```Git```
+```
+On branch style
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Якщо ми відкриємо наш файл, то побачимо наступне:
+
+![3 9](https://github.com/user-attachments/assets/4c97a042-3532-48e8-a3f0-b5390c831afc)
+
+
+Та частина яка знаходиться між ```<<<<<<<``` ```>>>>>>>``` і є конфліктом.
+
+Перед тим як вирішити наш конфлікт уручну нам треба зробити відкат назад, до злиття. 
+
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style|MERGING)
+$ git merge --abort
+```
+Тепер перевіремо статус.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git status
+On branch style
+nothing to commit, working tree clean
+```
+воно нам каже, що ми так відкотились назад і що робоче дерево чисте.
+
+Будемо вирішувати конфлікт.
+Зробимо злиття ще раз.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git merge main
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+Так, ну для вирішення конфлікту нам треба відредагувати файл до стану, що нас влаштовує і який не буде конфліктувати.
+
+Відкриємо наш файл. І відредагуємо його таким чинном:
+
+![3 10](https://github.com/user-attachments/assets/7abcba8f-7158-46d5-8a8b-ead53aed3f88)
+
+Після збереження файлу закомітимо його. 
+
+Спочатку додамо його.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style|MERGING)
+$ git add index.html
+```
+
+Комміт
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style|MERGING)
+$ git commit -m "Resolved merge conflict"
+[style 1fad50e] Resolved merge conflict
+```
+
+Тепер подивимось на поточний стан нашого репозиторію
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git status
+On branch style
+nothing to commit, working tree clean
+```
+
+Тепер подивимось на структуру нашого дерева
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log --all --graph
+```
+
+```
+*   1fad50e 2025-03-10 | Resolved merge conflict (HEAD -> style) [Dmytro]
+|\
+| * 07015f1 2025-03-10 | Added meta title (main) [Dmytro]
+* | fd5481e 2025-03-10 | Merge branch 'main' into style [Dmytro]
+|\|
+| * 9b72d64 2025-03-10 | Added README [Dmytro]
+* | 37345ad 2025-03-10 | Renamed hello.html; moved style.css [Dmytro]
+* | 14af3d6 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+* | 58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+|/
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+![25](https://github.com/user-attachments/assets/eb58cd7e-e2f2-4519-a40a-1f2234903ef1)
+
+# 26. ```rebase``` проти ```merge```
+
+Тут ми розглянемо різницю між цими командами, для цього ми повернемося до репозиторію.
+
+# 27. Відкочування гілки ```style```
+
+Наша задача повернутися у той час коли наші гілки НЕ були злитті. Для цього перемкнемося на іншу гілку:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git switch style
+Already on 'style'
+```
+
+Тепер подивимось на нашу структуру дерева:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log --graph
+```
+
+```
+*   1fad50e 2025-03-10 | Resolved merge conflict (HEAD -> style) [Dmytro]
+|\
+| * 07015f1 2025-03-10 | Added meta title (main) [Dmytro]
+* | fd5481e 2025-03-10 | Merge branch 'main' into style [Dmytro]
+|\|
+| * 9b72d64 2025-03-10 | Added README [Dmytro]
+* | 37345ad 2025-03-10 | Renamed hello.html; moved style.css [Dmytro]
+* | 14af3d6 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+* | 58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+|/
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Як бачимо останнім комітом у гілці ```style``` був ```Renamed hello.html; moved style.css```. 
+
+Наша задача повернутися у цей момент часу. Для цього ми можемо використати 2 способи:
+- або хеш
+- або те що коміт знаходиться за 2 коміти до ```HEAD```
+
+Виконаємо команду яка поверне нас у цей коміт.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git reset --hard HEAD~2
+HEAD is now at 37345ad Renamed hello.html; moved style.css
+```
+
+```37345ad``` є нашим хешем.
+
+Тепер перевіримо нашу гілку. Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log --graph
+```
+Результат 
+```
+* 37345ad 2025-03-10 | Renamed hello.html; moved style.css (HEAD -> style) [Dmytro]
+* 14af3d6 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+* 58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+![27](https://github.com/user-attachments/assets/5f30c211-d25f-47f3-866e-fb0315203e30)
+
+# 28. Перебазування
+
+Так ми повернулися у той момент ДО того як ми злили гілку ```style``` з ```main```.
+
+В гілці ```main``` є дві коміти, яких зараз немає у гілці ```style```:
+
+- новий файл ```README```
+- конфліктна зміна у файлі ```index.html```
+
+Цього разу ми перенесемо ці зміни до гілки ```style``` за допомогою команди ```rebase```, а не ```merge```.
+
+Виконаємо наступні команди:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git switch style
+Already on 'style'
+```
+
+Тепер команда для переносу:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git rebase main
+```
+
+Результат:
+```
+Auto-merging hello.html
+CONFLICT (content): Merge conflict in hello.html
+error: could not apply 14af3d6... Included stylesheet into hello.html
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply 14af3d6... Included stylesheet into hello.html
+```
+Так-с у нас тут конфлікт, перевіримо зараз статус:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style|REBASE 2/3)
+$ git status
+```
+
+Результат:
+```
+interactive rebase in progress; onto 07015f1
+Last commands done (2 commands done):
+   pick 58031fb Added css stylesheet
+   pick 14af3d6 Included stylesheet into hello.html
+Next command to do (1 remaining command):
+   pick 37345ad Renamed hello.html; moved style.css
+  (use "git rebase --edit-todo" to view and edit)
+You are currently rebasing branch 'style' on '07015f1'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   hello.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+Kонфлікт стався в ```hello.html```, а не в ```index.html```, як минулого разу.
+Це тому, що ```rebase``` був у процесі застосування змін ```style``` поверх гілки ```main```.
+У той момент в гілці ```main``` ще не було перейменовано файл ```hello.html```, тому він все ще має стару назву.
+
+Відкриємо файл наш ```hello.html```
+
+![3 9](https://github.com/user-attachments/assets/167fb7ba-623b-47df-b90e-27ee6fa65879)
+
+Так тепер вирішемо наш конфлікт. Для цього ми вручну відредагуємо наш файл, аби він відповідав нашим очікуванням
+
+![3 10](https://github.com/user-attachments/assets/5b05056c-162b-4de0-a7e4-25dff721bd9a)
+
+Зберігаємо наш файл.
+Але нам не треба робити коміти. Ми можемо просто додати файл до індексу і продовжити процес перебазування.
+
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style|REBASE 2/3)
+$ git add .
+```
+
+Тепер виконаємо наступну:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style|REBASE 2/3)
+$ git rebase --continue
+[detached HEAD b57c804] Included stylesheet into hello.html
+ 1 file changed, 1 insertion(+)
+Successfully rebased and updated refs/heads/style.
+```
+
+Тепер перевіремо статус.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git status
+On branch style
+nothing to commit, working tree clean
+```
+
+Статус нам каже, що все гаразд. Тому йдемо далі.
+
+Тепер перевіримо нашу структуру
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log --all --graph
+* ea7021a 2025-03-10 | Renamed hello.html; moved style.css (HEAD -> style) [Dmytro]
+* b57c804 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+* 8da2d61 2025-03-10 | Added css stylesheet [Dmytro]
+* 07015f1 2025-03-10 | Added meta title (main) [Dmytro]
+* 9b72d64 2025-03-10 | Added README [Dmytro]
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Кінцевий результат перебазування дуже схожий на результат злиття. Гілка ```style``` зараз містить всі свої зміни, 
+а також всі зміни гілки ```main```. Однак, дерево комітів значно відрізняється. Дерево комітів гілки ```style``` було переписано 
+таким чином, що гілка main є частиною історії комітів. Це робить ланцюг комітів лінійним і набагато більш читабельним.
+
+Тепер зробимо висновок, коли використовувати команду ```rebase```, а коли команду ```merge```?
+
+Використовуємо ✔️: 
+- Коли ви підтягуєте зміни з віддаленого репозиторія і хочете злити їх до вашої локальної гілки.
+- Якщо ви хочете, щоб історія комітів була лінійною і легкою для читання.
+
+НЕ використовуємо ❌:
+- Якщо поточна гілка є загальнодоступною. Перезапис таких гілок заважатиме роботі інших членів команди.
+- Коли важлива точна історія гілки комітів (оскільки команда ```rebase``` переписує історію комітів).
+
+Тобто висновок такий. Для локальних ```rebase```, для загальнодоступних ```merge```.
+
+![28](https://github.com/user-attachments/assets/bec843d4-4a70-4a67-b85e-a982fdc6533c)
+
+# 29. Злиття в гілку ```main```
+
+Тепер будемо зливати наші гілки, але спочатку перемкнемось на основну гілку ```main```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git switch main
+Switched to branch 'main'
+```
+
+Тепер будемо зливати наші гілки
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git merge style
+Updating 07015f1..ea7021a
+Fast-forward
+ css/style.css            | 4 ++++
+ hello.html => index.html | 1 +
+ 2 files changed, 5 insertions(+)
+ create mode 100644 css/style.css
+ rename hello.html => index.html (72%)
+```
+
+Переглянемо наші логи
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git log --all --graph
+* ea7021a 2025-03-10 | Renamed hello.html; moved style.css (HEAD -> main, style) [Dmytro]
+* b57c804 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+* 8da2d61 2025-03-10 | Added css stylesheet [Dmytro]
+* 07015f1 2025-03-10 | Added meta title [Dmytro]
+* 9b72d64 2025-03-10 | Added README [Dmytro]
+* c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+* 9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+* 205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+* a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+* 937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Як бачимо усе добре.
+
+![29](https://github.com/user-attachments/assets/745332a8-7919-43c6-99de-38b9e50db39b)
+
+
+## Частина 2
+# 30. Клонування репозиторіїв
+
+Перейдемо у директорію ```repositories```. 
+
+Виконаємо наступну команду:
+
+Спочатку вийдемо з директорії у якій ми зараз
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ cd ..
+```
+
+Тепер подивимось на поточну директорію:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ pwd
+/d/all you need/Общее/учеба/Git tutor/githowto/repositories
+```
+
+Тепер подивимось на список файлів і каталогів
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ ls
+work/
+```
+
+Створемо клон нашого репозиторію
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ git clone work home
+Cloning into 'home'...
+done.
+```
+
+Перевіримо які є файли і каталоги:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ ls
+home/  work/
+```
+
+![30](https://github.com/user-attachments/assets/b5e8703f-4241-425a-bdad-2f95f7e5f5fa)
+
+# 31. Перегляд клонованого репозиторія
+Переглянемо на клонований репозиторій.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ cd home
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ ls
+css/  index.html  README
+```
+
+Тут знаходяться каталог ```css/```, ```index.html```, ```README```.
+
+Переглянемо історію змін репозиторію. Виконаємо команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git log --all
+```
+
+Результат
+```
+ea7021a 2025-03-10 | Renamed hello.html; moved style.css (HEAD -> main, origin/style, origin/main, origin/HEAD) [Dmytro]
+b57c804 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+8da2d61 2025-03-10 | Added css stylesheet [Dmytro]
+07015f1 2025-03-10 | Added meta title [Dmytro]
+9b72d64 2025-03-10 | Added README [Dmytro]
+c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Історія повина співпадати з старим репозиторієм.
+
+![31](https://github.com/user-attachments/assets/53aa7d9f-8343-41c8-9bc5-ac4bfccbefcd)
+
+# 32. Що таке origin?
+
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git remote
+```
+
+Результатом буде:
+```
+origin
+```
+Ми бачимо, що клонований репозиторій знає про ім'я за замовчуванням віддаленого репозиторія.
+
+Подивімось, чи можемо ми отримати більш детальну інформацію про ім'я за замовчуванням:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git remote show origin
+```
+Результат:
+```
+* remote origin
+  Fetch URL: D:/all you need/Общее/учеба/Git tutor/githowto/repositories/work
+  Push  URL: D:/all you need/Общее/учеба/Git tutor/githowto/repositories/work
+  HEAD branch: main
+  Remote branches:
+    main  tracked
+    style tracked
+  Local branch configured for 'git pull':
+    main merges with remote main
+  Local ref configured for 'git push':
+    main pushes to main (up to date)
+```
+
+Ми бачимо, що «ім'я за замовчуванням» віддаленого репозиторія — початкове ```work```.
+
+![32](https://github.com/user-attachments/assets/1d41c4d4-9646-4dfb-897f-254aa45e5a6e)
+
+# 33. Віддалені гілки
+
+Подивімось на гілки, доступні в нашому клонованому репозиторії.
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git branch
+```
+
+Результат:
+```
+* main
+```
+
+Як ми бачимо, у списку лише гілка ```main```. Де гілка ```style```? 
+Команда ```git branch```, за замовчуванням, виводить лише список локальних гілок.
+
+Для того аби побачити усі гілки, виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git branch -a
+```
+
+Результат:
+```
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/style
+```
+
+![33](https://github.com/user-attachments/assets/bc325cbc-86c4-4215-8c55-a61a47852242)
+
+# 34. Зміна оригінального репозиторія
+Внесемо зміни у оригінальний репозиторій ```work```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ cd ../work
+```
+
+Тепер відкриємо файл ```README``` і зробимо такі зміни:
+
+![3 11](https://github.com/user-attachments/assets/a6746e7c-1d7c-48a1-882a-b68d91458498)
+
+Після зберігання додамо цю зміну і зробимо коміт.
+
+Додавання зміни:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add README
+```
+
+Виконання коміту:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Changed README in original repo"
+[main 0223813] Changed README in original repo
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+```
+
+![34](https://github.com/user-attachments/assets/55a2ba92-63f8-469d-9f2d-7cc32584442c)
+
+# 35. Підтягування змін
+Виконаємо наступну команди: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ cd ../home
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git fetch
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 372 bytes | 2.00 KiB/s, done.
+From D:/all you need/Общее/учеба/Git tutor/githowto/repositories/work
+   ea7021a..0223813  main       -> origin/main
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git log --all
+0223813 2025-03-11 | Changed README in original repo (origin/main, origin/HEAD) [Dmytro]
+ea7021a 2025-03-10 | Renamed hello.html; moved style.css (HEAD -> main, origin/style) [Dmytro]
+b57c804 2025-03-10 | Included stylesheet into hello.html [Dmytro]
+8da2d61 2025-03-10 | Added css stylesheet [Dmytro]
+07015f1 2025-03-10 | Added meta title [Dmytro]
+9b72d64 2025-03-10 | Added README [Dmytro]
+c410e88 2025-03-10 | Added copyright statement with email [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+Зараз в репозиторії є всі коміти з оригінального репозиторія, але вони не злиті в локальні гілки клонованого репозиторія.
+
+В історії вище знайдемо коміт ```Changed README in original repo```. Зверніть увагу, що коміт містить у собі коміти ```origin/main``` і ```origin/HEAD```.
+Тепер подивімось на коміт ```Renamed hello.html; moved style.css```. Ви побачите, що локальна гілка ```main``` вказує на цей коміт, а не на новий коміт, котрий ми щойно підтягнули.
+Висновком є те, що команда ```git fetch``` буде підтягувати нові коміти з віддаленого репозиторія, але не буде зливати їх з вашими напрацюваннями в локальних гілках.
+
+Перевіримо файл ```README```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ cat README
+This is the Hello World example from the GitHowTo tutorial.
+```
+
+Жодних змін НЕМА.
+
+![35](https://github.com/user-attachments/assets/f16d0135-7f3a-4c4e-bf87-aaf45f0293a4)
+
+# 36. Злиття підтягнутих змін
+Виконаємо злиття зміни у локальну гілку ```main```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git merge origin/main
+Updating ea7021a..0223813
+Fast-forward
+ README | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+```
+
+Ще раз перевіримо файл ```README```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ cat README
+This is the Hello World example from the Git tutorial.
+(changed in origin)
+```
+
+Команда ```fetch``` дає вам повний контроль над тим, що саме підтягується та зливається в локальні гілки, 
+але для зручності існує також команда ```pull```, яка підтягує та зливає зміни з віддаленої гілки у вашу поточну гілку одним викликом.
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git pull
+Already up to date.
+```
+
+![36](https://github.com/user-attachments/assets/c8a760ec-5a46-46f6-a214-0031ae40b5d8)
+
+# 37. Додавання гілки відстеження
+
+Додамо локальну гілку, яка відстежує віддалену гілку:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git branch --track style origin/style
+branch 'style' set up to track 'origin/style'.
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git branch -a
+* main
+  style
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/style
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git log --max-count=2
+0223813 2025-03-11 | Changed README in original repo (HEAD -> main, origin/main, origin/HEAD) [Dmytro]
+ea7021a 2025-03-10 | Renamed hello.html; moved style.css (origin/style, style) [Dmytro]
+```
+
+Тепер ми можемо бачити гілку ```style``` у списку гілок і у лозі.
+
+![37](https://github.com/user-attachments/assets/19c92bb6-4a79-45f4-9388-7aeb61f87fe5)
+
+# 38. Чисті репозиторії
+Cтворемо чистий репозиторій. 
+
+Виконаємо наступні команди:
+
+Вийдемо з поточного каталогу
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ cd ..
+```
+
+Склонуємо 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ git clone --bare work work.git
+Cloning into bare repository 'work.git'...
+done.
+```
+
+Перевіримо зміст репозиторію
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ ls work.git
+config  description  HEAD  hooks/  info/  objects/  packed-refs  refs/
+```
+
+![38](https://github.com/user-attachments/assets/f67bfd07-3141-4ccf-ac09-6f6dd92b2653)
+
+# 39. Додавання віддаленого репозиторія
+
+Додаймо репозиторій ```work.git``` до нашого оригінального репозиторія.
+
+Виконаємо наступні команди: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ cd work
+```
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git remote add shared ../work.git
+```
+
+![39](https://github.com/user-attachments/assets/d00ad88a-e661-4833-9e58-0ff39b7d51bc)
+
+# 40. Відправка змін
+Почнемо зі створення зміни, яку потрібно передати в репозиторій. Відредагуємо ```README``` і зробимо коміт змін.
+
+Виконаємо команду: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ nvim README
+```
+
+Робимо зміни:
+
+![3 12](https://github.com/user-attachments/assets/957f87e4-3499-4d79-8448-b64372d47bf6)
+
+Зберігаємо наші зміни.
+
+Перемкнемось на іншу гілку ```main```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git switch main
+Already on 'main'
+M       README
+```
+
+Додамо зміну 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git add README
+```
+
+Робимо коміт
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git commit -m "Added shared comment to readme"
+[main 243639b] Added shared comment to readme
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+Тепер надішлемо зміни до спільний репозиторій
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git push shared main
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 398 bytes | 36.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To ../work.git
+   0223813..243639b  main -> main
+```
+
+![40](https://github.com/user-attachments/assets/0db085ab-ac6c-4a66-b46b-1d9deb571c58)
+
+# 41. Підтягування спільних змін
+Перейдемо у каталог ```home```, виконавши команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ cd ../home
+```
+
+Додаємо віддалений репозиторій ```shared```:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git remote add shared ../work.git
+```
+
+Cтворюємо локальну гілку ```shared```, яка відслідковує ```main``` у ```shared```:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git branch --track shared main
+branch 'shared' set up to track 'main'.
+```
+
+Підтягуємо зміни з ```shared```:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ git pull shared main
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 378 bytes | 2.00 KiB/s, done.
+From ../work
+ * branch            main       -> FETCH_HEAD
+ * [new branch]      main       -> shared/main
+Updating 0223813..243639b
+Fast-forward
+ README | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+ Перевірка вмісту ```README```:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/home (main)
+$ cat README
+This is the Hello World example from the Git tutorial.
+(changed in the origin and pushed to shared)
+```
+
+![41](https://github.com/user-attachments/assets/98241202-9bbc-4785-a9b2-ec556d606df1)
+
+# 42. Розміщення ваших Git репозиторіїв
+Виконаємо наступну команду:
+
+Запустимо наш Git-сервер
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ git daemon --verbose --export-all --base-path=.
+[19148] Ready to rumble
+[1572] Connection from [::1]:64741
+[1572] unable to set SO_KEEPALIVE on socket: Input/output error
+[1572] Extended attribute "host": localhost
+[1572] Extended attribute "protocol": version=2
+[1572] Request upload-pack for '/work.git'
+```
+
+В окремому вікні терміналу перейдемо до директорії ```repositories```:
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories
+$ git clone git://localhost/work.git network_work
+Cloning into 'network_work'...
+remote: Enumerating objects: 36, done.
+remote: Counting objects: 100% (36/36), done.
+remote: Compressing objects: 100% (27/27), done.
+remote: Total 36 (delta 4), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (36/36), done.
+Resolving deltas: 100% (4/4), done.
+```
+
+Ми побачимо копію проекту ```work```.
+
+![42](https://github.com/user-attachments/assets/879744e9-a8eb-4511-848c-1029a1f365e0)
+
+Усе. Туторіал пройдений.
+
+# Висновок
+У ході виконання практичного завдання я ознайомився з основними командами Git, 
+навчився працювати з локальним і віддаленим репозиторіями, створювати гілки, 
+виконувати коміти, зливати зміни та вирішувати конфлікти. Інтерактивний курс Git How To 
+допоміг закріпити ці навички на практиці та зрозуміти логіку роботи системи контролю версій Git.
