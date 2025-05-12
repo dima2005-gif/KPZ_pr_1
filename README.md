@@ -1022,3 +1022,192 @@ nothing to commit, working tree clean
 dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
 $ touch style.css
 ```
+У редакторі кода напишемо наступне:
+
+![4 1](https://github.com/user-attachments/assets/fdba5f5f-ca89-4d02-9b86-646c1756639f)
+
+Збережемо наш файл. Виконаємо наступну команду, аби додати наш файл у коміт:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git add style.css
+```
+
+Тепер виконаємо коміт:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git commit -m "Added css stylesheet"
+[style 58031fb] Added css stylesheet
+ 1 file changed, 4 insertions(+)
+ create mode 100644 style.css
+```
+
+Тепер у файлі ```hello.html``` підключемо стилі:
+
+![3 7](https://github.com/user-attachments/assets/48a5a0e1-9fb4-4529-b837-49e0579ad947)
+
+Збережемо і додамо його:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git add hello.html
+```
+
+Робимо коміт:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git commit -m "Included stylesheet into hello.html"
+[style 14af3d6] Included stylesheet into hello.html
+ 1 file changed, 1 insertion(+)
+```
+
+![18](https://github.com/user-attachments/assets/c4c017ef-afa2-4527-ac27-ab80c2e20d3b)
+
+# 19. Перемикання гілок
+Виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log --all
+```
+
+У результаті побачимо, що:
+```
+14af3d6 2025-03-10 | Included stylesheet into hello.html (HEAD -> style) [Dmytro]
+58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+c410e88 2025-03-10 | Added copyright statement with email (main) [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+
+у нас тут є ще одна гілка ```style```.
+
+Перемкнемось назад у гілку ```main```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git switch main
+Switched to branch 'main'
+```
+
+і прочитаємо зміст файлу ```hello.html```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ cat hello.html
+<!-- Author: Alexander Shvets (alex@githowto.com) -->
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Hello, world</h1>
+  </body>
+</html>
+```
+
+Тепер знову повернемось до гілки ```style```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (main)
+$ git switch style
+Switched to branch 'style'
+```
+
+Тепер тут ми прочитаємо наш файл:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ cat hello.html
+<!-- Author: Alexander Shvets (alex@githowto.com) -->
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" media="all" href="style.css" />
+  </head>
+  <body>
+    <h1>Hello, world</h1>
+  </body>
+</html>
+```
+
+Як бачимо різниця чутлива. Якщо на основні гілці ```main``` НЕ БУЛО підключення до стилів, то коли ми змінили гілку (```style```)
+то побачили, що зміст одного і того самого файлу різний.
+
+![19](https://github.com/user-attachments/assets/aa7f01e6-7628-4f40-993d-634ea7533361)
+
+# 20. Переміщення файлів
+Переглянемо історію змін файлів, для цього виконаємо наступні команди:
+# HTML
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log hello.html
+```
+
+У результаті буде:
+
+```
+14af3d6 2025-03-10 | Included stylesheet into hello.html (HEAD -> style) [Dmytro]
+c410e88 2025-03-10 | Added copyright statement with email (main) [Dmytro]
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+205f3f9 2025-03-10 | Added standard HTML page tags (tag: v1-beta) [Dmytro]
+a31cf4c 2025-03-10 | Added h1 tag [Dmytro]
+937b340 2025-03-10 | Initial Comit [Dmytro]
+```
+# CSS
+
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git log style.css
+```
+
+Результат:
+```
+58031fb 2025-03-10 | Added css stylesheet [Dmytro]
+```
+
+Переглянемо різніцю між версіями певного файлу. Для цього виконаємо наступну команду:
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git show v1
+```
+
+У результаті буде:
+```
+9b6ab77 2025-03-10 | Added HTML header (tag: v1) [Dmytro]
+
+diff --git a/hello.html b/hello.html
+index bd11108..f9ca1fe 100644
+--- a/hello.html
++++ b/hello.html
+@@ -1,5 +1,8 @@
+ <html>
++  <head>
++  </head>
+   <body>
+     <h1>Hello, world</h1>
+   </body>
+ </html>
++
+```
+
+Так тепер перейменуємо наш файл ```hello.html``` на стандартну назву ```index.html```, за допомогою команди ```mv```
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ mv hello.html index.html
+```
+
+Тепер перевіримо його статус, виконавши наступну команду: 
+```
+dima2@DESKTOP-O8IIC2U MINGW64 /d/all you need/Общее/учеба/Git tutor/githowto/repositories/work (style)
+$ git status
+```
+
+Результат буде такий: 
+```
+On branch style
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    hello.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
